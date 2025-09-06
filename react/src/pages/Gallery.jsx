@@ -46,10 +46,16 @@ const Gallery = () => {
       return;
     }
 
-    if (sortValue === "asc") {
-      filteredImages.sort((a, b) => a.localeCompare() - b.localeCompare);
-    } else {
-      filteredImages.sort((a, b) => b.localeCompare() - a.localeCompare);
+    if (sortValue === "desc") {
+      filteredImages.sort(
+        (a, b) =>
+          a.title.localeCompare(b.title) - b.title.localeCompare(a.title)
+      );
+    } else if (sortValue === "asc") {
+      filteredImages.sort(
+        (a, b) =>
+          b.title.localeCompare(a.title) - a.title.localeCompare(b.title)
+      );
     }
   }, [sortValue]);
 
@@ -105,14 +111,10 @@ const Gallery = () => {
           }
         ></input>
 
-        <select>
-          <option>Sort</option>
-          <option value="asc" onChange={(e) => setSortValue(e.target.value)}>
-            title [asc]
-          </option>
-          <option value="desc" onChange={(e) => setSortValue(e.target.value)}>
-            title [desc]
-          </option>
+        <select onChange={(e) => setSortValue(e.target.value)}>
+          <option value="">Sort</option>
+          <option value="asc">title [asc]</option>
+          <option value="desc">title [desc]</option>
         </select>
 
         <h4 style={{ cursor: "pointer" }} onClick={signOutHandler}>
